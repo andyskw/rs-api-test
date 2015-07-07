@@ -4,11 +4,13 @@ var http = require("http");
 var app = express();
 
 var registration = require("./routes/registration");
+var users = require("./routes/users");
 
 
 //Setting routes
 var router = require("express").Router();
 router.post("/registration", registration.postRegistration);
+router.get("/users", users.getUsers);
 
 //Initial Express setup
 app.set('port', process.env.PORT ? process.env.PORT : 3000);
