@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/andyskw/rs-api-test/issues"
   },
-  "homepage": "https://github.com/andyskw/rs-api-test"
+  "homepage": "https://github.com/andyskw/rs-api-test",
+  "dependencies": {
+    "express": "~4.13.1"
+  }
 }
