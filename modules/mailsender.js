@@ -1,22 +1,30 @@
 var nodemailer = require("nodemailer");
 var Q = require("q");
 var transporter;
+var config = require("../config");
+
+//TODO: Actually mailsender should not really handle the content of the registration email directly.
+/* A notificationmanager could be useful, which will know, how does a registration e-mail look like ( either from code,
+ or from some kind of templating engines (jade seems to be more than enough for this purpose)
+
+ It would be also helpful, as it makes adding new notification types to the application easier, when needed.
+ */
 
 exports.sendRegistrationMail = function(to, name, token) {
 
     if (!transporter) {
-        console.log("Creating transporter for the first e-mail to send.")
+        console.log("Creating transporter for the first e-mail to send.");
         transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: process.env.MAILUSER,
-                pass: process.env.MAILPASS
+                user: config.mail.user,
+                pass: config.mail.pass
             }
         });
     }
 
     var mailOptions = {
-        from: process.env.MAILFROM ? process.env.MAILFROM : 'Andras Ivanyi <'+process.env.MAILUSER+'>', // sender address
+        from: config.mail.from, // sender address
         to: to,
         subject: 'Registration on the RS JSON API test server', // Subject line
         text: 'Heeello! You can use this link: http://localhost:3000/users/' + token, // plaintext body

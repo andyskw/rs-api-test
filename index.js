@@ -9,6 +9,23 @@ var json_response = require("./modules/middlewares/json_response");
 var registration = require("./routes/registration");
 var users = require("./routes/users");
 
+//Initializing app configuration
+var config;
+
+try {
+    config = require("./config");
+} catch (err) {
+    console.log("The application has the following mandatory environment variables, all of them must be set:")
+    console.log("   - MAILUSER  - a valid gmail user name");
+    console.log("   - MAILPASS  - an application password for the gmail user");
+    console.log("   - MAILFROM  - the sent mail's FROM header value");
+    console.log("The application supports the following optional environment variables:");
+    console.log("   - MONGOCONNECT - the connect string used to connect to a mongod or mongos");
+    console.log("   - PORT - the port to listen on");
+    console.log("Please make sure to set all the mandatory environment variables.");
+    process.exit(1);
+}
+
 //Initializing db connections.
 var dal = require("./db");
 
@@ -22,8 +39,7 @@ router.get("/users/:token", users.getUsers);
 
 
 //Initial Express setup
-//TODO: configuration handling
-app.set('port', process.env.PORT ? process.env.PORT : 3000);
+app.set('port', config.express.port);
 app.use(json_response.setResponseContentType("application/vnd.api+json"));
 app.use(bodyparser.json());
 
