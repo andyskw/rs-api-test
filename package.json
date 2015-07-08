@@ -26,6 +26,9 @@
   },
   "homepage": "https://github.com/andyskw/rs-api-test",
   "dependencies": {
-    "express": "~4.13.1"
+    "express": "~4.13.1",
+    "mongoose-q": "0.0.17",
+    "q": "~1.4.1",
+    "lodash": "~3.10.0"
   }
 }
