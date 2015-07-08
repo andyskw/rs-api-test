@@ -2,6 +2,8 @@ var Q = require("q");
 var validator = require("validator");
 var db = require("../db");
 var uuid = require('node-uuid');
+var mailsender = require("../modules/mailsender");
+
 exports.postRegistration = function(req,res) {
     var data = req.body;
     validateData(data)
@@ -55,8 +57,19 @@ function saveToken(data) {
 }
 
 function sendEmail(data) {
-    console.log(data._token.tokenValue);
+    var deferred = Q.defer();
+    mailsender.sendRegistrationMail(data.email, data.name, data._token.tokenValue)
+        .then(function (ignored) {
+            console.log("Mail sent.");
+            deferred.resolve(data);
+        })
+        .fail(function (reason) {
+            console.log("Error while sending e-mail to the new user", reason);
+            console.log(reason);
+            deferred.reject("INTERNAL_ERROR");
 
+        });
+    return deferred.promise;
 }
 
 function validateData(data) {
