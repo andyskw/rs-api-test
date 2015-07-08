@@ -30,6 +30,8 @@
     "mongoose-q": "0.0.17",
     "q": "~1.4.1",
     "lodash": "~3.10.0",
-    "body-parser": "~1.13.2"
+    "body-parser": "~1.13.2",
+    "validator": "~3.41.2",
+    "node-uuid": "~1.4.3"
   }
 }
