@@ -1,5 +1,7 @@
 var db = require("../db");
 var Q = require("q");
+var _ = require("lodash");
+
 exports.getUsers = function(req,res) {
     db.UserToken.find( {
         tokenValue : req.params.token
@@ -17,8 +19,22 @@ exports.getUsers = function(req,res) {
             return db.User.findQ();
         })
         .then(function(users) {
-            //TODO: attributes(name), type for each user...
-            res.send(JSON.stringify({data: users}));
+
+            //Maybe the schema was far from ideal for JSON API spec. :D
+            var resUsers = [];
+            _.forEach(users, function (user) {
+                var resUser = {
+                    type : "User",
+                    id : user._id.toString()
+                };
+
+               resUser.attributes = {
+                   name : user.name,
+                   email : user.email
+               };
+                resUsers.push(resUser);
+            });
+            res.send(JSON.stringify({data: resUsers}));
         })
         .fail(function (reason) {
             res.send({error: reason});

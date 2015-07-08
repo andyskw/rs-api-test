@@ -13,6 +13,7 @@ var users = require("./routes/users");
 var config;
 
 try {
+    console.log("Initializing RS API test configuration...");
     config = require("./config");
 } catch (err) {
     console.log("The application has the following mandatory environment variables, all of them must be set:")
