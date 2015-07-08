@@ -1,6 +1,7 @@
 var mongoose = require('mongoose-q')();
 var user = require('./models/user');
 var usertoken = require('./models/usertoken');
+var config = require("./config");
 
 
 
@@ -15,14 +16,10 @@ exports.init = function() {
         console.error("MongoDb threw an exception:" + error);
         throw error;
     });
-
-
-
-
-//TODO: configuration handling
+    
     user(mongoose);
     usertoken(mongoose);
-    mongoose.connect("mongodb://127.0.0.1:27017/rs-api-test", {}, function (err) {
+    mongoose.connect(config.mongo.connectionString, {}, function (err) {
         if (err) {
             console.log("Error while connecting to MongoDB");
             throw err;
