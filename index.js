@@ -3,6 +3,8 @@
 var express = require('express');
 var http = require("http");
 var app = express();
+var bodyparser = require("body-parser");
+var json_response = require("./modules/middlewares/json_response");
 
 var registration = require("./routes/registration");
 var users = require("./routes/users");
@@ -22,7 +24,8 @@ router.get("/users", users.getUsers);
 //Initial Express setup
 //TODO: configuration handling
 app.set('port', process.env.PORT ? process.env.PORT : 3000);
-
+app.use(json_response.setResponseContentType("application/vnd.api+json"));
+app.use(bodyparser.json());
 
 //TODO: CORS support?
 app.options("*", router);
