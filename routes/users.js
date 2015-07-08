@@ -23,5 +23,4 @@ exports.getUsers = function(req,res) {
         .fail(function (reason) {
             res.send({error: reason});
         }).done();
-  res.send(JSON.stringify({world: "Hello"}));
 }
