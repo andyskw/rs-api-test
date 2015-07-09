@@ -1,6 +1,6 @@
 exports.setResponseContentType = function(ct) {
    return  function(req,res,next) {
-            res.setHeader("Content-Type", ct);
+            res.type(ct);
             next();
     }
-}
+};

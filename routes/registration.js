@@ -11,11 +11,19 @@ exports.postRegistration = function(req,res) {
         .then(saveToken)
         .then(sendEmail)
         .then(function (ok) {
-            res.send(JSON.stringify({hello: "World"}));
+            var resUser = {
+                type: "User",
+                id: data._user._id.toString(),
+                attributes: {
+                    name: data._user.name,
+                    email: data._user.email
+                }
+            };
+            res.status(201).json(resUser);
         })
         .fail(function (err) {
             console.log(err);
-            res.send(JSON.stringify({error: err}));
+            res.status(403).json({error: err});
         })
         .done();
 

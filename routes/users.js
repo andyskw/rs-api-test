@@ -34,9 +34,9 @@ exports.getUsers = function(req,res) {
                };
                 resUsers.push(resUser);
             });
-            res.send(JSON.stringify({data: resUsers}));
+            res.json({data: resUsers});
         })
         .fail(function (reason) {
-            res.send(JSON.stringify({error: reason}));
+            res.json({error: reason});
         }).done();
 }
