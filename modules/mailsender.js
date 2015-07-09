@@ -4,6 +4,7 @@ var transporter;
 var config = require("../config");
 
 //TODO: Actually mailsender should not really handle the content of the registration email directly.
+
 /* A notificationmanager could be useful, which will know, how does a registration e-mail look like ( either from code,
  or from some kind of templating engines (jade seems to be more than enough for this purpose)
 
@@ -27,8 +28,8 @@ exports.sendRegistrationMail = function(to, name, token) {
         from: config.mail.from, // sender address
         to: to,
         subject: 'Registration on the RS JSON API test server', // Subject line
-        text: 'Heeello! You can use this link: http://localhost:3000/users/' + token, // plaintext body
-        html: "Heeello! You can use this link here: http://localhost:3000/users/"+token // html body
+        text: 'Heeello! You can use this link: http://localhost:'+config.express.port+'/users/' + token, // plaintext body
+        html: "Heeello! You can use this link here: http://localhost:"+config.express.port+"/users/"+token // html body
     };
     var deferred = Q.defer();
     // send mail with defined transport object
