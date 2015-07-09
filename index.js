@@ -5,10 +5,6 @@ var http = require("http");
 var app = express();
 var bodyparser = require("body-parser");
 var json_response = require("./modules/middlewares/json_response");
-
-var registration = require("./routes/registration");
-var users = require("./routes/users");
-
 //Initializing app configuration
 var config;
 
@@ -28,8 +24,11 @@ try {
 }
 
 //Initializing db connections.
-var dal = require("./db");
+var db = require("./db");
 
+//Init routes
+var registration = require("./routes/registration");
+var users = require("./routes/users");
 
 
 //Setting routes
