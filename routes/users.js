@@ -41,6 +41,7 @@ exports.getUsers = function(req,res) {
             res.json({data: resUsers});
         })
         .fail(function (reason) {
-            res.json({error: reason});
+            //Room for improvement: Response codes could depend on the reasons.
+            res.status(403).json({error: [reason]});
         }).done();
 }
