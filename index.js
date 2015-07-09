@@ -35,7 +35,7 @@ var users = require("./routes/users");
 //TODO: router initialization could be moved out to an external module
 var router = require("express").Router();
 router.post("/registration", registration.postRegistration);
-router.get("/users/:token", users.getUsers);
+router.get("/users", users.getUsers);
 
 
 //Initial Express setup

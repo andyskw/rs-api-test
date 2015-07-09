@@ -28,8 +28,8 @@ exports.sendRegistrationMail = function(to, name, token) {
         from: config.mail.from, // sender address
         to: to,
         subject: 'Registration on the RS JSON API test server', // Subject line
-        text: 'Heeello! You can use this link: http://localhost:'+config.express.port+'/users/' + token, // plaintext body
-        html: "Heeello! You can use this link here: http://localhost:"+config.express.port+"/users/"+token // html body
+        text: 'Heeello! You can use this link: http://localhost:'+config.express.port+'/users?token=' + token, // plaintext bxody
+        html: "Heeello! You can use this link here: http://localhost:"+config.express.port+"/users?token="+token // html body
     };
     var deferred = Q.defer();
     // send mail with defined transport object

@@ -3,8 +3,12 @@ var Q = require("q");
 var _ = require("lodash");
 
 exports.getUsers = function(req,res) {
+    if (!req.query.token) {
+        res.status(403).json({error: ["INVALID_TOKEN"]});
+        return;
+    }
     db.UserToken.find( {
-        tokenValue : req.params.token
+        tokenValue : req.query.token
     }).count().execQ()
         .then(function (data) {
             var deferred = Q.defer();
