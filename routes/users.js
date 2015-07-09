@@ -37,6 +37,6 @@ exports.getUsers = function(req,res) {
             res.send(JSON.stringify({data: resUsers}));
         })
         .fail(function (reason) {
-            res.send({error: reason});
+            res.send(JSON.stringify({error: reason}));
         }).done();
 }
